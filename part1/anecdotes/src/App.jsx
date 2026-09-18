@@ -4,6 +4,24 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max)
 }
 
+function getTopAnecdote(arr) {
+  // arr represents the array that holds the # of votes per anecdote
+  let highestVotes = 0;
+  let highestIndex = 0;
+  // go through each value in arr
+  for (let i = 0; i < arr.length; i++) {
+    // check if the current value is higher than the previous highest value
+    if (arr[i] > highestVotes)
+    {
+      // if it is, save both the value and the index
+      highestVotes = arr[i]
+      highestIndex = i
+    }
+  }
+  // return the index of the highest value
+  return highestIndex
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -33,10 +51,15 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p>has {votes[selected]} votes</p>
       <button onClick={handleVote}>vote</button>
       <button onClick={handleSelected}>next anecdote</button>
+
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[getTopAnecdote(votes)]}
+      
     </div>
   )
 
